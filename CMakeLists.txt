@@ -7,7 +7,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(platformer)
 
-set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/source)
 file(GLOB SOURCES ${SOURCE_DIR}/*.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
