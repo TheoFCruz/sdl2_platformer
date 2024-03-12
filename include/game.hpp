@@ -3,6 +3,10 @@
 
 #include <SDL2/SDL.h>
 
+#include <vector>
+
+#include "entity.hpp"
+
 class Game
 {
 public:
@@ -18,6 +22,8 @@ public:
 private:
   SDL_Window* mWindow;  
   SDL_Renderer* mRenderer;
+
+  std::vector<Entity> mEntities;
 };
 
 #endif // !GAME
