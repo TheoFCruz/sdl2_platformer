@@ -18,10 +18,51 @@ Player::~Player()
 
 }
 
+void Player::handleInput(SDL_Event& input)
+{
+  if (input.type == SDL_KEYDOWN && !input.key.repeat)
+  {
+    switch(input.key.keysym.sym)
+    {
+      case SDLK_w:
+        mVelocity.y -= 1;
+        break;
+      case SDLK_a:
+        mVelocity.x -= 1;
+        break;
+      case SDLK_s:
+        mVelocity.y += 1;
+        break;
+      case SDLK_d:
+        mVelocity.x += 1;
+        break;
+    }
+  }
+  else if (input.type == SDL_KEYUP && !input.key.repeat)
+  {
+    switch(input.key.keysym.sym)
+    {
+      case SDLK_w:
+        mVelocity.y += 1;
+        break;
+      case SDLK_a:
+        mVelocity.x += 1;
+        break;
+      case SDLK_s:
+        mVelocity.y -= 1;
+        break;
+      case SDLK_d:
+        mVelocity.x -= 1;
+        break;
+    }
+  }
+}
+
 void Player::update(double deltaTime)
 {
-  mPosition.x += mVelocity.x * deltaTime;
-  mPosition.y += mVelocity.y * deltaTime; 
+  Vector2f normalVelocity = Vector2f::normalize(mVelocity);
+  mPosition.x += PLAYER_SPEED * normalVelocity.x * deltaTime;
+  mPosition.y += PLAYER_SPEED * normalVelocity.y * deltaTime; 
 }
 
 void Player::render()

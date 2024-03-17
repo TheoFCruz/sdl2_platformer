@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include "consts.hpp"
+#include "player.hpp"
 
 bool Game::init()
 {
@@ -67,10 +68,19 @@ void Game::quit()
   SDL_Quit();
 }
 
+void Game::createEntities()
+{
+  mEntities.push_back(std::make_unique<Player>(*this));
+}
+
+void Game::handleInput(SDL_Event& input)
+{
+  for (auto& entity : mEntities) entity->handleInput(input);
+}
 
 void Game::update(double deltaTime)
 {
-  for (auto entity : mEntities) entity->update(deltaTime); 
+  for (auto& entity : mEntities) entity->update(deltaTime); 
 }
 
 void Game::render()
@@ -78,7 +88,7 @@ void Game::render()
   SDL_SetRenderDrawColor(mRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
   SDL_RenderClear(mRenderer);
 
-  for (auto entity : mEntities) entity->render(); 
+  for (auto& entity : mEntities) entity->render(); 
 
   SDL_RenderPresent(mRenderer);
 }

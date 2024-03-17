@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 
 #include <vector>
+#include <memory>
 
 #include "entity.hpp"
 
@@ -16,6 +17,9 @@ public:
   bool init();
   void quit();
 
+  void createEntities();
+
+  void handleInput(SDL_Event& input);
   void update(double deltaTime);
   void render();
 
@@ -25,7 +29,7 @@ private:
   SDL_Window* mWindow;  
   SDL_Renderer* mRenderer;
 
-  std::vector<Entity*> mEntities;
+  std::vector<std::unique_ptr<Entity>> mEntities;
 };
 
 #endif // !GAME

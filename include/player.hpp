@@ -1,6 +1,8 @@
 #ifndef PLAYER
 #define PLAYER
 
+#include <SDL2/SDL.h>
+
 #include "entity.hpp"
 #include "gameMath.hpp"
 
@@ -12,6 +14,7 @@ public:
 
   virtual void update(double deltaTime) override;
   virtual void render() override;
+  virtual void handleInput(SDL_Event& input) override;
 
 private:
   Vector2f mPosition;

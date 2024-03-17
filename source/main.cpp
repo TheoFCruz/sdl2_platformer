@@ -7,6 +7,8 @@ int main(int argc, char** argv)
   Game game;
   if (!game.init()) return -1; 
 
+  game.createEntities(); 
+
   Uint64 currentCounter = SDL_GetPerformanceCounter();
   Uint64 lastCounter = 0;
   double deltaTime = 0;
@@ -24,6 +26,7 @@ int main(int argc, char** argv)
     while (SDL_PollEvent(&event))
     {
       if (event.type == SDL_QUIT) running = false;
+      else game.handleInput(event);
     }
 
     //Game update and draw
