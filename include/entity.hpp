@@ -1,16 +1,19 @@
 #ifndef ENTITY
 #define ENTITY
 
-#include "math.hpp"
+class Game;
 
 class Entity
 { 
 public:
-  Entity(); 
-  virtual ~Entity();
+  Entity(Game& pGame): mGameReference(pGame) {} 
+  virtual ~Entity() = default;
 
-private:
-  Vector2f mPosition;
+  virtual void update(double deltaTime) = 0;
+  virtual void render() = 0;
+
+protected:
+  Game& mGameReference;
 };
 
 #endif // !ENTITY

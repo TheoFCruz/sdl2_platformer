@@ -19,11 +19,13 @@ public:
   void update(double deltaTime);
   void render();
 
+  SDL_Renderer* getRenderer() { return mRenderer; }
+
 private:
   SDL_Window* mWindow;  
   SDL_Renderer* mRenderer;
 
-  std::vector<Entity> mEntities;
+  std::vector<Entity*> mEntities;
 };
 
 #endif // !GAME
