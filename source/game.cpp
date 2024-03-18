@@ -70,7 +70,7 @@ void Game::quit()
 
 void Game::createEntities()
 {
-  mEntities.push_back(std::make_unique<Player>(*this));
+  mEntities.push_back(std::make_unique<Player>(Vector2f(50.f, 50.f)));
 }
 
 void Game::handleInput(SDL_Event& input)
@@ -88,7 +88,7 @@ void Game::render()
   SDL_SetRenderDrawColor(mRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
   SDL_RenderClear(mRenderer);
 
-  for (auto& entity : mEntities) entity->render(); 
+  for (auto& entity : mEntities) entity->render(mRenderer); 
 
   SDL_RenderPresent(mRenderer);
 }

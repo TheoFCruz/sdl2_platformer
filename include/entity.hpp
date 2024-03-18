@@ -3,20 +3,23 @@
 
 #include <SDL2/SDL.h>
 
+#include "gameMath.hpp"
+
 class Game;
 
 class Entity
 { 
 public:
-  Entity(Game& pGame): mGameReference(pGame) {} 
+  Entity(Vector2f pPosition): mPosition(pPosition) {} 
   virtual ~Entity() = default;
 
   virtual void update(double deltaTime) = 0;
-  virtual void render() = 0;
+  virtual void render(SDL_Renderer* pRenderer) = 0;
   virtual void handleInput(SDL_Event& input) = 0;
 
 protected:
-  Game& mGameReference;
+  Vector2f mPosition;
+  Vector2f mVelocity;
 };
 
 #endif // !ENTITY

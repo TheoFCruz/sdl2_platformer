@@ -2,13 +2,10 @@
 
 #include <SDL2/SDL.h>
 
-#include "game.hpp"
 #include "consts.hpp"
 
-Player::Player(Game& pGame):
-  Entity(pGame),
-  mPosition(0, 0),
-  mVelocity(0, 0)
+Player::Player(Vector2f pPosition):
+  Entity(pPosition)
 {
 
 }
@@ -52,9 +49,8 @@ void Player::update(double deltaTime)
   mPosition.y += mVelocity.y * deltaTime; 
 }
 
-void Player::render()
+void Player::render(SDL_Renderer* pRenderer)
 {
-  SDL_Renderer* renderer = mGameReference.getRenderer();
   SDL_FRect rect;
   
   rect.x = mPosition.x;
@@ -62,6 +58,6 @@ void Player::render()
   rect.w = SQUARE_SIDE;
   rect.h = SQUARE_SIDE;
 
-  SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
-  SDL_RenderFillRectF(renderer, &rect);
+  SDL_SetRenderDrawColor(pRenderer, 0x00, 0x00, 0x00, 0xFF);
+  SDL_RenderFillRectF(pRenderer, &rect);
 }
