@@ -24,17 +24,11 @@ void Player::handleInput(SDL_Event& input)
   {
     switch(input.key.keysym.sym)
     {
-      case SDLK_w:
-        mVelocity.y -= 1;
-        break;
       case SDLK_a:
-        mVelocity.x -= 1;
-        break;
-      case SDLK_s:
-        mVelocity.y += 1;
+        mVelocity.x -= PLAYER_SPEED;
         break;
       case SDLK_d:
-        mVelocity.x += 1;
+        mVelocity.x += PLAYER_SPEED;
         break;
     }
   }
@@ -42,17 +36,11 @@ void Player::handleInput(SDL_Event& input)
   {
     switch(input.key.keysym.sym)
     {
-      case SDLK_w:
-        mVelocity.y += 1;
-        break;
       case SDLK_a:
-        mVelocity.x += 1;
-        break;
-      case SDLK_s:
-        mVelocity.y -= 1;
+        mVelocity.x += PLAYER_SPEED;
         break;
       case SDLK_d:
-        mVelocity.x -= 1;
+        mVelocity.x -= PLAYER_SPEED;
         break;
     }
   }
@@ -60,9 +48,8 @@ void Player::handleInput(SDL_Event& input)
 
 void Player::update(double deltaTime)
 {
-  Vector2f normalVelocity = Vector2f::normalize(mVelocity);
-  mPosition.x += PLAYER_SPEED * normalVelocity.x * deltaTime;
-  mPosition.y += PLAYER_SPEED * normalVelocity.y * deltaTime; 
+  mPosition.x += mVelocity.x * deltaTime;
+  mPosition.y += mVelocity.y * deltaTime; 
 }
 
 void Player::render()

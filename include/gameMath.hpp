@@ -10,17 +10,11 @@ public:
   Vector2(): x(0), y(0) {}
   Vector2(T x, T y): x(x), y(y) {}
   
-  static Vector2<T> normalize(const Vector2<T>& vec)
+  void normalize()
   {
-    Vector2<T> returnVec;
-    T vecNorm = std::sqrt(vec.x * vec.x + vec.y * vec.y);
-
-    if (vecNorm == 0) return vec;
-    
-    returnVec.x = vec.x / vecNorm;
-    returnVec.y = vec.y / vecNorm;
-
-    return returnVec;
+    T vecNorm = std::sqrt(x*x + y*y);
+    x = x/vecNorm;
+    y = y/vecNorm;
   }
 
   T x;
