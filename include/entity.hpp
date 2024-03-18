@@ -17,6 +17,12 @@ public:
   virtual void render(SDL_Renderer* pRenderer) = 0;
   virtual void handleInput(SDL_Event& input) = 0;
 
+  Vector2f getPos() { return mPosition; }
+  Vector2f getVel() { return mVelocity; }
+
+  void setPos(Vector2f pPos) { mPosition = pPos; }
+  void setVel(Vector2f pVel) { mVelocity = pVel; }
+
 protected:
   Vector2f mPosition;
   Vector2f mVelocity;
