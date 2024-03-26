@@ -8,6 +8,7 @@
 
 #include "entity.hpp"
 #include "tile.hpp"
+#include "physicsManager.hpp"
 
 class Game
 {
@@ -24,11 +25,14 @@ public:
   void update(double deltaTime);
   void render();
 
-  SDL_Renderer* getRenderer() { return mRenderer; }
+  std::vector<std::unique_ptr<Entity>>& getEntities() { return mEntities; }
+  std::vector<std::unique_ptr<Tile>>& getTiles() { return mTiles; }
 
 private:
   SDL_Window* mWindow;  
   SDL_Renderer* mRenderer;
+
+  PhysicsManager mPhysics;
 
   std::vector<std::unique_ptr<Entity>> mEntities;
   std::vector<std::unique_ptr<Tile>> mTiles;

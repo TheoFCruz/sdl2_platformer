@@ -5,8 +5,6 @@
 
 #include "gameMath.hpp"
 
-class Game;
-
 class Entity
 { 
 public:
