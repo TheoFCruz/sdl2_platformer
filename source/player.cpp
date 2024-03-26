@@ -58,6 +58,6 @@ void Player::render(SDL_Renderer* pRenderer)
   rect.w = SQUARE_SIDE;
   rect.h = SQUARE_SIDE;
 
-  SDL_SetRenderDrawColor(pRenderer, 0x00, 0x00, 0x00, 0xFF);
+  SDL_SetRenderDrawColor(pRenderer, 0xff, 0x00, 0x00, 0xFF);
   SDL_RenderFillRectF(pRenderer, &rect);
 }

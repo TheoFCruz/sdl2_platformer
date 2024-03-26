@@ -71,6 +71,8 @@ void Game::quit()
 void Game::createEntities()
 {
   mEntities.push_back(std::make_unique<Player>(Vector2f(50.f, 50.f)));
+
+  mTiles.push_back(std::make_unique<Tile>(Vector2f(150.f, 500.f), Vector2f(500.f, 50.f)));
 }
 
 void Game::handleInput(SDL_Event& input)
@@ -89,6 +91,7 @@ void Game::render()
   SDL_RenderClear(mRenderer);
 
   for (auto& entity : mEntities) entity->render(mRenderer); 
+  for (auto& tile : mTiles) tile->render(mRenderer); 
 
   SDL_RenderPresent(mRenderer);
 }

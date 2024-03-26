@@ -7,6 +7,7 @@
 #include <memory>
 
 #include "entity.hpp"
+#include "tile.hpp"
 
 class Game
 {
@@ -30,6 +31,7 @@ private:
   SDL_Renderer* mRenderer;
 
   std::vector<std::unique_ptr<Entity>> mEntities;
+  std::vector<std::unique_ptr<Tile>> mTiles;
 };
 
 #endif // !GAME
