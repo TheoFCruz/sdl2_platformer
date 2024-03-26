@@ -9,6 +9,17 @@
 #include "consts.hpp"
 #include "player.hpp"
 
+Game::Game():
+  mPhysics(*this)
+{
+
+}
+
+Game::~Game()
+{
+
+}
+
 bool Game::init()
 {
   // Initializes SDL, SDL_image and SDL_ttf
@@ -83,6 +94,8 @@ void Game::handleInput(SDL_Event& input)
 void Game::update(double deltaTime)
 {
   for (auto& entity : mEntities) entity->update(deltaTime); 
+
+  mPhysics.update(deltaTime); 
 }
 
 void Game::render()

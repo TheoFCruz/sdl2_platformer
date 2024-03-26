@@ -1,5 +1,12 @@
 #include "tile.hpp"
 
+Tile::Tile(Vector2f pos, Vector2f scale):
+  mPosition(pos),
+  mScale(scale)
+{
+  
+}
+
 void Tile::render(SDL_Renderer* pRenderer)
 {
   SDL_FRect rect;

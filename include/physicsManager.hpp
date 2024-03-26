@@ -6,10 +6,10 @@ class Game;
 class PhysicsManager
 {
 public:
-  PhysicsManager();
+  PhysicsManager(Game& pGame);
   ~PhysicsManager();
 
-  void update();
+  void update(double deltaTime);
 
 private:
   void solveCollisions();

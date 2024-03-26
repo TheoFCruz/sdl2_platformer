@@ -8,7 +8,7 @@
 class Tile
 {
 public:
-  Tile(Vector2f pos, Vector2f scale): mPosition(pos), mScale(scale) {} 
+  Tile(Vector2f pos, Vector2f scale); 
   ~Tile() {} 
 
   Vector2f getPos() { return mPosition; }

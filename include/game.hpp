@@ -13,8 +13,8 @@
 class Game
 {
 public:
-  Game() {}
-  ~Game() {}
+  Game();
+  ~Game();
 
   bool init();
   void quit();
