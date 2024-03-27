@@ -8,21 +8,21 @@
 class Entity
 { 
 public:
-  Entity(Vector2f pPosition): mPosition(pPosition) {} 
+  Entity(SDL_FRect pRect): mRect(pRect) {} 
   virtual ~Entity() = default;
 
   virtual void update(double deltaTime) = 0;
   virtual void render(SDL_Renderer* pRenderer) = 0;
   virtual void handleInput(SDL_Event& input) = 0;
 
-  Vector2f getPos() { return mPosition; }
+  SDL_FRect getRect() { return mRect; }
   Vector2f getVel() { return mVelocity; }
 
-  void setPos(Vector2f pPos) { mPosition = pPos; }
+  void setRect(SDL_FRect pRect) { mRect = pRect; }
   void setVel(Vector2f pVel) { mVelocity = pVel; }
 
 protected:
-  Vector2f mPosition;
+  SDL_FRect mRect;
   Vector2f mVelocity;
 };
 

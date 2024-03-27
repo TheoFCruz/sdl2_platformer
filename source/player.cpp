@@ -4,8 +4,8 @@
 
 #include "consts.hpp"
 
-Player::Player(Vector2f pPosition):
-  Entity(pPosition)
+Player::Player(SDL_FRect pRect):
+  Entity(pRect)
 {
 
 }
@@ -45,19 +45,12 @@ void Player::handleInput(SDL_Event& input)
 
 void Player::update(double deltaTime)
 {
-  mPosition.x += mVelocity.x * deltaTime;
-  mPosition.y += mVelocity.y * deltaTime; 
+  mRect.x += mVelocity.x * deltaTime;
+  mRect.y += mVelocity.y * deltaTime; 
 }
 
 void Player::render(SDL_Renderer* pRenderer)
 {
-  SDL_FRect rect;
-  
-  rect.x = mPosition.x;
-  rect.y = mPosition.y;
-  rect.w = SQUARE_SIDE;
-  rect.h = SQUARE_SIDE;
-
   SDL_SetRenderDrawColor(pRenderer, 0xff, 0x00, 0x00, 0xFF);
-  SDL_RenderFillRectF(pRenderer, &rect);
+  SDL_RenderFillRectF(pRenderer, &mRect);
 }

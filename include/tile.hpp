@@ -3,22 +3,18 @@
 
 #include <SDL2/SDL.h>
 
-#include "gameMath.hpp"
-
 class Tile
 {
 public:
-  Tile(Vector2f pos, Vector2f scale); 
-  ~Tile() {} 
+  Tile(SDL_FRect pRect); 
+  ~Tile();
 
-  Vector2f getPos() { return mPosition; }
-  Vector2f getScale() { return mScale; }
+  const SDL_FRect& getRect() { return mRect; }
 
   void render(SDL_Renderer* pRenderer);
 
 private:
-  Vector2f mPosition;
-  Vector2f mScale;
+  SDL_FRect mRect;
 };
 
 #endif // !TILE

@@ -28,10 +28,10 @@ void PhysicsManager::update(double deltaTime)
     entity->setVel(newVel);
   }
 
-  solveCollisions();
+  this->solveCollisions();
 }
 
-void solveCollisions()
+void PhysicsManager::solveCollisions()
 {
 
 }

@@ -8,7 +8,7 @@
 class Player: public Entity
 {
 public:
-  Player(Vector2f pPosition);
+  Player(SDL_FRect pRect);
   ~Player();
 
   virtual void update(double deltaTime) override;
