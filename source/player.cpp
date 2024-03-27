@@ -15,11 +15,11 @@ Player::~Player()
 
 }
 
-void Player::handleInput(SDL_Event& input)
+void Player::handleInput(SDL_Event& pInput)
 {
-  if (input.type == SDL_KEYDOWN && !input.key.repeat)
+  if (pInput.type == SDL_KEYDOWN && !pInput.key.repeat)
   {
-    switch(input.key.keysym.sym)
+    switch(pInput.key.keysym.sym)
     {
       case SDLK_a:
         mVelocity.x -= PLAYER_SPEED;
@@ -27,11 +27,17 @@ void Player::handleInput(SDL_Event& input)
       case SDLK_d:
         mVelocity.x += PLAYER_SPEED;
         break;
+      case SDLK_w:
+        if (mGrounded)
+        {
+          mVelocity.y -= JUMP_SPEED;
+          mGrounded = false;
+        }
     }
   }
-  else if (input.type == SDL_KEYUP && !input.key.repeat)
+  else if (pInput.type == SDL_KEYUP && !pInput.key.repeat)
   {
-    switch(input.key.keysym.sym)
+    switch(pInput.key.keysym.sym)
     {
       case SDLK_a:
         mVelocity.x += PLAYER_SPEED;
@@ -53,4 +59,9 @@ void Player::render(SDL_Renderer* pRenderer)
 {
   SDL_SetRenderDrawColor(pRenderer, 0xff, 0x00, 0x00, 0xFF);
   SDL_RenderFillRectF(pRenderer, &mRect);
+}
+
+void Player::onCollision(Tile& pTile)
+{
+  if (pTile.getPosition().y > this->getPosition().y) mGrounded = true;
 }

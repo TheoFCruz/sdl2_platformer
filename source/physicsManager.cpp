@@ -47,6 +47,8 @@ void PhysicsManager::solveCollisions()
 
         entity->setPosition(resultPosition);
         entity->setVelocity(resultVelocity);
+
+        entity->onCollision(*tile);
       }
     }
   }

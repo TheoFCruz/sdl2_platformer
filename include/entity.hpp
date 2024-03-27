@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 
 #include "gameMath.hpp"
+#include "tile.hpp"
 
 class Entity
 { 
@@ -13,7 +14,8 @@ public:
 
   virtual void update(double deltaTime) = 0;
   virtual void render(SDL_Renderer* pRenderer) = 0;
-  virtual void handleInput(SDL_Event& input) = 0;
+  virtual void handleInput(SDL_Event& pInput) = 0;
+  virtual void onCollision(Tile& pTile) = 0;
 
   SDL_FRect getRect() { return mRect; }
   Vector2f getPosition() { return Vector2f(mRect.x, mRect.y); }
