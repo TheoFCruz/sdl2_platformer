@@ -19,13 +19,13 @@ void PhysicsManager::update(double deltaTime)
   // Applying gravity
   for (const auto& entity : mGameReference.getEntities())
   {
-    Vector2f oldVel = entity->getVel();
+    Vector2f oldVel = entity->getVelocity();
     Vector2f newVel;
 
     newVel.x = oldVel.x;
     newVel.y = oldVel.y + GRAVITY * deltaTime;
 
-    entity->setVel(newVel);
+    entity->setVelocity(newVel);
   }
 
   this->solveCollisions();

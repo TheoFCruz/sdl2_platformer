@@ -16,10 +16,12 @@ public:
   virtual void handleInput(SDL_Event& input) = 0;
 
   SDL_FRect getRect() { return mRect; }
-  Vector2f getVel() { return mVelocity; }
+  Vector2f getPosition() { return Vector2f(mRect.x, mRect.y); }
+  Vector2f getVelocity() { return mVelocity; }
 
   void setRect(SDL_FRect pRect) { mRect = pRect; }
-  void setVel(Vector2f pVel) { mVelocity = pVel; }
+  void setPosition(Vector2f pPos) { mRect.x = pPos.x; mRect.y = pPos.y; }
+  void setVelocity(Vector2f pVel) { mVelocity = pVel; }
 
 protected:
   SDL_FRect mRect;
