@@ -84,6 +84,7 @@ void Game::createEntities()
   mEntities.push_back(std::make_unique<Player>(SDL_FRect{50.f, 50.f, SQUARE_SIDE, SQUARE_SIDE}));
 
   mTiles.push_back(std::make_unique<Tile>(SDL_FRect{150.f, 500.f, 500.f, 50.f}));
+  mTiles.push_back(std::make_unique<Tile>(SDL_FRect{350.f, 360.f, 200.f, 50.f}));
 }
 
 void Game::handleInput(SDL_Event& input)

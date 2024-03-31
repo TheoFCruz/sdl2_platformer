@@ -20,7 +20,6 @@ void PhysicsManager::update(double deltaTime)
 {
   // Applying gravity
   this->applyGravity(deltaTime);
-
   this->solveCollisions();
 }
 
@@ -42,8 +41,10 @@ void PhysicsManager::solveCollisions()
         resultPosition.y += collision.normal.y * collision.depth.y;
 
         Vector2f resultVelocity = entity->getVelocity();
-        resultVelocity.x += collision.normal.x * resultVelocity.x;
-        resultVelocity.y += collision.normal.y * resultVelocity.y;
+        float dotProd = resultVelocity.dotProd(collision.normal);
+
+        resultVelocity.x += std::abs(dotProd) * collision.normal.x;
+        resultVelocity.y += std::abs(dotProd) * collision.normal.y;
 
         entity->setPosition(resultPosition);
         entity->setVelocity(resultVelocity);
@@ -58,13 +59,9 @@ void PhysicsManager::applyGravity(double deltaTime)
 {
   for (const auto& entity : mGameReference.getEntities())
   {
-    Vector2f oldVel = entity->getVelocity();
-    Vector2f newVel;
-
-    newVel.x = oldVel.x;
-    newVel.y = oldVel.y + GRAVITY * deltaTime;
-
-    entity->setVelocity(newVel);
+    Vector2f resultVel = entity->getVelocity();
+    resultVel.y = resultVel.y + GRAVITY * deltaTime;
+    entity->setVelocity(resultVel);
   }
 }
 

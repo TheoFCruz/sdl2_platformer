@@ -17,6 +17,11 @@ public:
     y = y/vecNorm;
   }
 
+  T dotProd(Vector2<T> prodVec) 
+  {
+    return this->x * prodVec.x + this->y * prodVec.y;
+  }
+
   T x;
   T y;
 };
@@ -24,5 +29,6 @@ public:
 typedef Vector2<int> Vector2i;
 typedef Vector2<float> Vector2f;
 typedef Vector2<double> Vector2d;
+
 
 #endif // !MATH

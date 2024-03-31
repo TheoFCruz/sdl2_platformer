@@ -30,7 +30,7 @@ void Player::handleInput(SDL_Event& pInput)
       case SDLK_w:
         if (mGrounded)
         {
-          mVelocity.y -= JUMP_SPEED;
+          mVelocity.y = -JUMP_SPEED;
           mGrounded = false;
         }
     }
@@ -51,6 +51,8 @@ void Player::handleInput(SDL_Event& pInput)
 
 void Player::update(double deltaTime)
 {
+  mGrounded = false;
+
   mRect.x += mVelocity.x * deltaTime;
   mRect.y += mVelocity.y * deltaTime; 
 }
