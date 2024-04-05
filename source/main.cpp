@@ -26,7 +26,7 @@ int main(int argc, char** argv)
     while (SDL_PollEvent(&event))
     {
       if (event.type == SDL_QUIT) running = false;
-      else game.handleInput(event);
+      game.handleInput(event);
     }
 
     //Game update and draw
