@@ -1,5 +1,6 @@
 #include "physicsManager.hpp"
 
+#include <SDL_rect.h>
 #include <algorithm>
 
 #include "consts.hpp"
@@ -21,6 +22,7 @@ void PhysicsManager::update(double deltaTime)
   // Applying gravity
   this->applyGravity(deltaTime);
   this->solveCollisions();
+  this->applyGrounded();
 }
 
 void PhysicsManager::solveCollisions()
@@ -31,8 +33,8 @@ void PhysicsManager::solveCollisions()
     for (const auto& tile : mGameReference.getTiles())
     {
       Collision collision;
-      SDL_FRect rectA = tile->getRect();
-      SDL_FRect rectB = entity->getRect();
+      SDL_FRect* rectA = tile->getRect();
+      SDL_FRect* rectB = entity->getRect();
 
       if (rectOnRectCollision(rectA, rectB, &collision))
       {
@@ -65,25 +67,35 @@ void PhysicsManager::applyGravity(double deltaTime)
   }
 }
 
-bool PhysicsManager::rectOnRectCollision(SDL_FRect& rectA, SDL_FRect& rectB, Collision* collision)
+void PhysicsManager::applyGrounded()
 {
-  if (rectA.x + rectA.w < rectB.x) return false;
-  if (rectA.x > rectB.x + rectB.w) return false;
+  for (const auto& entity : mGameReference.getEntities())
+  {
+    SDL_FRect* entityRect = entity->getRect();
+    entity->setGrounded(raycast(Vector2f{entityRect->x + entityRect->w/2, entityRect->y + entityRect->h}, 
+                                Vector2f{entityRect->x + entityRect->w/2, entityRect->y + entityRect->h + 5}));
+  }
+}
 
-  if (rectA.y + rectA.h < rectB.y) return false;
-  if (rectA.y > rectB.y + rectB.h) return false;
+bool PhysicsManager::rectOnRectCollision(SDL_FRect* rectA, SDL_FRect* rectB, Collision* collision)
+{
+  if (rectA->x + rectA->w < rectB->x) return false;
+  if (rectA->x > rectB->x + rectB->w) return false;
 
-  float depthX = std::min(rectA.x + rectA.w - rectB.x,
-                          rectB.x + rectB.w - rectA.x);
-  float depthY = std::min(rectA.y + rectA.h - rectB.y,
-                          rectB.y + rectB.h - rectA.y);
+  if (rectA->y + rectA->h < rectB->y) return false;
+  if (rectA->y > rectB->y + rectB->h) return false;
+
+  float depthX = std::min(rectA->x + rectA->w - rectB->x,
+                          rectB->x + rectB->w - rectA->x);
+  float depthY = std::min(rectA->y + rectA->h - rectB->y,
+                          rectB->y + rectB->h - rectA->y);
 
   if (depthX < depthY)
   {
     collision->depth.x = depthX;
     collision->depth.y = 0;
 
-    collision->normal.x = (rectB.x - rectA.x)/std::abs(rectB.x - rectA.x);
+    collision->normal.x = (rectB->x - rectA->x)/std::abs(rectB->x - rectA->x);
     collision->normal.y = 0;
   }
   else
@@ -92,8 +104,21 @@ bool PhysicsManager::rectOnRectCollision(SDL_FRect& rectA, SDL_FRect& rectB, Col
     collision->depth.y = depthY;
 
     collision->normal.x = 0;
-    collision->normal.y = (rectB.y - rectA.y)/std::abs(rectB.y - rectA.y);
+    collision->normal.y = (rectB->y - rectA->y)/std::abs(rectB->y - rectA->y);
   }
 
   return true;
+}
+
+bool PhysicsManager::raycast(Vector2f start, Vector2f end)
+{
+  for (const auto& entity: mGameReference.getEntities())
+  {
+    if (SDL_IntersectFRectAndLine(entity->getRect(), &start.x, &start.y, &end.x, &end.y)) return true;
+  }
+  for (const auto& tile: mGameReference.getTiles())
+  {
+    if (SDL_IntersectFRectAndLine(tile->getRect(), &start.x, &start.y, &end.x, &end.y)) return true;
+  }
+  return false;
 }

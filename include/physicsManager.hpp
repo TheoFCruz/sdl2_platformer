@@ -21,10 +21,12 @@ public:
   void update(double deltaTime);
 
 private:
-  void applyGravity(double deltaTime);
   void solveCollisions();
+  void applyGravity(double deltaTime);
+  void applyGrounded();
 
-  bool rectOnRectCollision(SDL_FRect& rectA, SDL_FRect& rectB, Collision* collision);
+  bool rectOnRectCollision(SDL_FRect* rectA, SDL_FRect* rectB, Collision* collision);
+  bool raycast(Vector2f start, Vector2f end);
 
   Game& mGameReference;
 };

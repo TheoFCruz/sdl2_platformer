@@ -87,9 +87,9 @@ void Game::createEntities()
   mTiles.push_back(std::make_unique<Tile>(SDL_FRect{350.f, 360.f, 200.f, 50.f}));
 }
 
-void Game::handleInput(SDL_Event& input)
+void Game::handleInput()
 {
-  for (auto& entity : mEntities) entity->handleInput(input);
+  for (auto& entity : mEntities) entity->handleInput();
 }
 
 void Game::update(double deltaTime)

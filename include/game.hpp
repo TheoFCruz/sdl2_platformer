@@ -21,7 +21,7 @@ public:
 
   void createEntities();
 
-  void handleInput(SDL_Event& input);
+  void handleInput();
   void update(double deltaTime);
   void render();
 

@@ -26,8 +26,10 @@ int main(int argc, char** argv)
     while (SDL_PollEvent(&event))
     {
       if (event.type == SDL_QUIT) running = false;
-      game.handleInput(event);
     }
+
+    SDL_PumpEvents();
+    game.handleInput();
 
     //Game update and draw
     game.update(deltaTime);

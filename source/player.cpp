@@ -3,6 +3,8 @@
 #include <SDL2/SDL.h>
 
 #include "consts.hpp"
+#include "gameMath.hpp"
+#include "physicsManager.hpp"
 
 Player::Player(SDL_FRect pRect):
   Entity(pRect)
@@ -15,41 +17,10 @@ Player::~Player()
 
 }
 
-void Player::handleInput(SDL_Event& pInput)
+void Player::handleInput()
 {
-  // if (pInput.type == SDL_KEYDOWN && !pInput.key.repeat)
-  // {
-  //   switch(pInput.key.keysym.sym)
-  //   {
-  //     case SDLK_a:
-  //       mVelocity.x -= PLAYER_SPEED;
-  //       break;
-  //     case SDLK_d:
-  //       mVelocity.x += PLAYER_SPEED;
-  //       break;
-  //     case SDLK_w:
-  //       if (mGrounded)
-  //       {
-  //         mVelocity.y = -JUMP_SPEED;
-  //         mGrounded = false;
-  //       }
-  //   }
-  // }
-  // else if (pInput.type == SDL_KEYUP && !pInput.key.repeat)
-  // {
-  //   switch(pInput.key.keysym.sym)
-  //   {
-  //     case SDLK_a:
-  //       mVelocity.x += PLAYER_SPEED;
-  //       break;
-  //     case SDLK_d:
-  //       mVelocity.x -= PLAYER_SPEED;
-  //       break;
-  //   }
-  // }
-  
   // TODO: Implement better input handling with an InputManager class
-  
+
   const Uint8* keyboardState = SDL_GetKeyboardState(NULL);
   int dir = 0;
   if (keyboardState[SDL_SCANCODE_D]) dir++;
@@ -57,20 +28,11 @@ void Player::handleInput(SDL_Event& pInput)
 
   mVelocity.x = dir * PLAYER_SPEED;
   
-  bool jumpCondition = (
-    pInput.type == SDL_KEYDOWN &&
-    pInput.key.keysym.sym == SDLK_w &&
-    !pInput.key.repeat &&
-    mGrounded
-  );
-
-  if (jumpCondition) mVelocity.y = -JUMP_SPEED;
+  if (keyboardState[SDL_SCANCODE_W] && mGrounded) mVelocity.y = -JUMP_SPEED;
 }
 
 void Player::update(double deltaTime)
 {
-  mGrounded = false;
-
   mRect.x += mVelocity.x * deltaTime;
   mRect.y += mVelocity.y * deltaTime; 
 }
@@ -83,5 +45,5 @@ void Player::render(SDL_Renderer* pRenderer)
 
 void Player::onCollision(Tile& pTile)
 {
-  if (pTile.getPosition().y > this->getPosition().y) mGrounded = true;
+
 }

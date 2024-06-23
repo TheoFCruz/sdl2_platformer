@@ -11,7 +11,7 @@ public:
   Tile(SDL_FRect pRect); 
   ~Tile();
 
-  SDL_FRect getRect() { return mRect; }
+  SDL_FRect* getRect() { return &mRect; }
   Vector2f getPosition() { return Vector2f(mRect.x, mRect.y); }
 
   void setPosition(Vector2f pos) { mRect.x = pos.x; mRect.y = pos.y; }
